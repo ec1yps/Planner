@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planner_UI", "Planner_UI\Planner_UI.csproj", "{BECDF385-0787-43A3-B10C-23D2E019E1C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planner_server", "Planner_server\Planner_server.csproj", "{3276FD7F-880F-4A23-BE15-928107805B54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BECDF385-0787-43A3-B10C-23D2E019E1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BECDF385-0787-43A3-B10C-23D2E019E1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BECDF385-0787-43A3-B10C-23D2E019E1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BECDF385-0787-43A3-B10C-23D2E019E1C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3276FD7F-880F-4A23-BE15-928107805B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3276FD7F-880F-4A23-BE15-928107805B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3276FD7F-880F-4A23-BE15-928107805B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3276FD7F-880F-4A23-BE15-928107805B54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CA3E7AA-9DAC-4D6E-91BD-44E0C9CC7756}
+	EndGlobalSection
+EndGlobal
