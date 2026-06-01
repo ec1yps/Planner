@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Planner_server.Data;
 
 namespace Planner_server
 {
@@ -8,6 +10,8 @@ namespace Planner_server
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
+			builder.Services.AddDbContext<AppDbContext>(options =>
+				options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection")));
 
 			builder.Services.AddControllers();
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
