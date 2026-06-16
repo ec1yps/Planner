@@ -15,6 +15,9 @@ namespace Planner_server.Models
 		[MaxLength(2000)]
 		public string? Description { get; set; }
 
+		[DataType(DataType.DateTime)]
+		public DateTime? DueDate { get; set; }
+
 		public bool IsCompleted { get; set; } = false;
 
 		[Required]

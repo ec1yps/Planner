@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Planner_server.Data;
 using Planner_server.Models;
 using System.Security.Claims;
+using Planner_server.DTOs;
 
 
 namespace Planner_server.Controllers
@@ -41,14 +42,15 @@ namespace Planner_server.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<TaskItem>> Create(TaskItem task)
+		public async Task<ActionResult<TaskItem>> Create(CreateTaskRequest request)
 		{
-			bool userExist = await _context.Users
-				.AnyAsync(u => u.Id == task.UserId);
-
-			if (!userExist) return BadRequest("User does not exist.");
-
-			task.UserId = GetUserId();
+			TaskItem task = new()
+			{ 
+				Title = request.Title,
+				Description = request.Description,
+				DueDate = request.DueDate,
+				UserId = GetUserId()
+			};
 
 			_context.TaskItems.Add(task);
 			await _context.SaveChangesAsync();
@@ -60,16 +62,24 @@ namespace Planner_server.Controllers
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> Update(int id, TaskItem task)
+		public async Task<IActionResult> Update(int id, UpdateTaskRequest request)
 		{
+			if (!ModelState.IsValid) return BadRequest(ModelState);
+
 			int userId = GetUserId();
 
-			TaskItem? existingTask = await _context.TaskItems
+			TaskItem? task = await _context.TaskItems
 				.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
 
-			if (existingTask == null) return NotFound();
+			if (task == null) return NotFound();
 
-			_context.Entry(task).State = EntityState.Modified;
+			task.Title = request.Title;
+			task.Description = request.Description;
+			task.DueDate = request.DueDate;
+			task.IsCompleted = request.IsCompleted;
+
+			_context.TaskItems.Update(task);
+
 			await _context.SaveChangesAsync();
 
 			return NoContent();
@@ -92,7 +102,7 @@ namespace Planner_server.Controllers
 
 		private int GetUserId()
 		{
-			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
 
 			return int.Parse(userId!);
 		}
