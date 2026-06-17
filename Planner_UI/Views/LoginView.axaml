@@ -1,0 +1,51 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Planner_UI.ViewModels"
+        mc:Ignorable="d" 
+        x:Class="Planner_UI.LoginView"
+        x:DataType="vm:LoginViewModel"
+        WindowStartupLocation="CenterScreen"
+        Width="400" Height="350"
+        Title="Planner">
+
+    <StackPanel
+        VerticalAlignment="Center"
+        Margin="20"
+        Spacing="10">
+
+        <TextBlock
+            Text="Login"
+            FontSize="26"
+            HorizontalAlignment="Center"/>
+
+        <TextBox
+            Text="{Binding Username}"
+            PlaceholderText="login"/>
+
+        <TextBox
+            Text="{Binding Password}"
+            PlaceholderText="password"
+            PasswordChar="*"/>
+
+        <StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="20"
+            Spacing="20">
+
+            <Button
+                Content="Sign in" 
+                Command="{Binding LoginCommand}"/>
+
+            <Button
+                Content="Sign up"
+                Command="{Binding StartRegistrationCommand}"/>
+
+        </StackPanel>
+
+
+    </StackPanel>
+
+</Window>

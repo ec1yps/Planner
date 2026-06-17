@@ -1,0 +1,55 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Planner_UI.ViewModels"
+        mc:Ignorable="d" 
+        x:Class="Planner_UI.RegisterView"
+        x:DataType="vm:RegisterViewModel"
+        WindowStartupLocation="CenterScreen"
+        Width="400" Height="420"
+        Title="Registration">
+
+    <StackPanel
+        VerticalAlignment="Center"
+        Margin="20" Spacing="10">
+
+        <TextBlock
+            Text="Registration"
+            FontSize="24"
+            HorizontalAlignment="Center"/>
+
+        <TextBlock
+            Text="Username"/>
+
+        <TextBox />
+
+        <TextBlock
+            Text="E-mail"/>
+
+        <TextBox />
+
+        <TextBlock
+            Text="Password"/>
+
+        <TextBox />
+
+        <StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="20"
+            Spacing="20">
+
+            <Button
+                Content="Register"
+                Command="{Binding RegisterCommand}"/>
+
+            <Button
+                Content="Back"
+                Command="{Binding BackCommand}"/>
+
+        </StackPanel>
+
+    </StackPanel>
+
+</Window>
