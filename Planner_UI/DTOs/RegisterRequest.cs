@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Planner_UI.DTOs
 {
-	internal class RegisterRequest
+	public class RegisterRequest
 	{
 		public string? Username { get; set; }
 		public string? Email { get; set; }

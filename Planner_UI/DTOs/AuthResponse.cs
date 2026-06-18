@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Planner_UI.DTOs
 {
-	internal class AuthResponse
+	public class AuthResponse
 	{
 		public string? Token { get; set; }
 	}

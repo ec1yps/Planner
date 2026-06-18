@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Planner_UI.DTOs
 {
-	internal class LoginRequest
+	public class LoginRequest
 	{
 		public string? Username { get; set; }
 		public string? Password { get; set; }

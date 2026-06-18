@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="using:Planner_UI.ViewModels"
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
         x:Class="Planner_UI.RegisterView"
         x:DataType="vm:RegisterViewModel"
         WindowStartupLocation="CenterScreen"
@@ -22,17 +22,20 @@
         <TextBlock
             Text="Username"/>
 
-        <TextBox />
+        <TextBox
+            Text="{Binding Username}"/>
 
         <TextBlock
-            Text="E-mail"/>
+            Text="Email"/>
 
-        <TextBox />
+        <TextBox
+            Text="{Binding Email}"/>
 
         <TextBlock
             Text="Password"/>
 
-        <TextBox />
+        <TextBox 
+        Text="{Binding Password}"/>
 
         <StackPanel
             Orientation="Horizontal"
