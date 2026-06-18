@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Planner_UI.Models
 {
-	internal class TaskItem
+	public class TaskItem
 	{
 		public int Id { get; set; }
 		public string? Title { get; set; }

@@ -28,7 +28,14 @@ namespace Planner_UI.ViewModels
 
 			if (success)
 			{
-				// Открыть главное окно
+				TaskView taskWindow = new();
+				taskWindow.Show();
+
+				if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+				{
+					desktop.MainWindow?.Close();
+					desktop.MainWindow = taskWindow;
+				}
 			}
 			else
 			{
