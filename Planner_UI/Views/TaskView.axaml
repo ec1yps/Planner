@@ -16,10 +16,15 @@
                     Spacing="10">
 
             <TextBox Width="200"
-                     Watermark="Task title"
+                     PlaceholderText="Task title"
                      Text="{Binding Title}" />
 
-            <Button Content="Add task"/>
+            <TextBox Width="300"
+                     PlaceholderText="Description"
+                     Text="{Binding Description}" />
+
+            <Button Content="Add task"
+                    Command="{Binding AddTaskCommand}"/>
 
         </StackPanel>
 

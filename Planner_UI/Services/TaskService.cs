@@ -1,7 +1,9 @@
-﻿using Planner_UI.Models;
+﻿using Planner_UI.DTOs;
+using Planner_UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,17 @@ namespace Planner_UI.Services
 				await _apiService.HttpClient.GetFromJsonAsync<List<TaskItem>>("api/task");
 
 			return tasks ?? new List<TaskItem>();
+		}
+
+		public async Task<TaskItem?> CreateTaskAsync(CreateTaskRequest request)
+		{
+			HttpResponseMessage response =
+				await _apiService.HttpClient.PostAsJsonAsync("api/task", request);
+
+			if(!response.IsSuccessStatusCode)
+				return null;
+
+			return await response.Content.ReadFromJsonAsync<TaskItem>();
 		}
 	}
 }

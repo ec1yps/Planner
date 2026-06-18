@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Planner_UI.DTOs;
 using Planner_UI.Models;
 using Planner_UI.Services;
 using System;
@@ -22,7 +24,7 @@ namespace Planner_UI.ViewModels
 
 		public TaskViewModel()
 		{
-			
+			_ = LoadTasksAsync();
 		}
 
 		private async Task LoadTasksAsync()
@@ -36,6 +38,30 @@ namespace Planner_UI.ViewModels
 			{
 				Tasks.Add(task);
 			}
+		}
+
+		[RelayCommand]
+		private async Task AddTask()
+		{
+			if (string.IsNullOrWhiteSpace(Title))
+				return;
+
+			CreateTaskRequest request = new()
+			{
+				Title = Title,
+				Description = Description
+			};
+
+			TaskItem? createdTask = 
+				await ServiceLocator.TaskService.CreateTaskAsync(request);
+
+			if (createdTask is null)
+				return;
+
+			Tasks.Add(createdTask);
+
+			Title = string.Empty;
+			Description = string.Empty;
 		}
 	}
 }
