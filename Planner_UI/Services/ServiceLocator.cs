@@ -11,5 +11,7 @@ namespace Planner_UI.Services
 		public static ApiService ApiService { get; } = new();
 
 		public static AuthService AuthService { get; } = new(ApiService);
+
+		public static TaskService TaskService { get; } = new(ApiService);
 	}
 }

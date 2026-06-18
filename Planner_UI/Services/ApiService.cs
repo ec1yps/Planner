@@ -16,7 +16,7 @@ namespace Planner_UI.Services
 		{
 			HttpClient = new()
 			{
-				BaseAddress = new Uri("https://localhost:7183")
+				BaseAddress = new Uri("https://localhost:7183/")
 			};
 		}
 
