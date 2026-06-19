@@ -45,6 +45,10 @@
 
                             <TextBlock Text="{Binding Description}"/>
 
+                            <Button Content="Delete"
+                                    Command="{Binding $parent[Window].DataContext.DeleteTaskCommand}"
+                                    CommandParameter="{Binding}"/>
+
                         </StackPanel>
 
                     </Border>

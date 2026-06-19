@@ -63,5 +63,16 @@ namespace Planner_UI.ViewModels
 			Title = string.Empty;
 			Description = string.Empty;
 		}
+
+		[RelayCommand]
+		private async Task DeleteTask(TaskItem task)
+		{
+			bool success = await ServiceLocator
+				.TaskService
+				.DeleteTaskAsync(task.Id);
+
+			if(success)
+				Tasks.Remove(task);
+		}
 	}
 }

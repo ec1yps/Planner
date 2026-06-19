@@ -32,10 +32,18 @@ namespace Planner_UI.Services
 			HttpResponseMessage response =
 				await _apiService.HttpClient.PostAsJsonAsync("api/task", request);
 
-			if(!response.IsSuccessStatusCode)
+			if (!response.IsSuccessStatusCode)
 				return null;
 
 			return await response.Content.ReadFromJsonAsync<TaskItem>();
+		}
+
+		public async Task<bool> DeleteTaskAsync(int id)
+		{
+			HttpResponseMessage response =
+				await _apiService.HttpClient.DeleteAsync($"api/task/{id}");
+
+			return response.IsSuccessStatusCode;
 		}
 	}
 }
