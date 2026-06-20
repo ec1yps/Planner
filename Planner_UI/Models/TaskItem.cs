@@ -26,5 +26,18 @@ namespace Planner_UI.Models
 
 		[ObservableProperty]
 		private bool isEditing;
+
+		public DateTimeOffset? DueDateOffset
+		{
+			get => DueDate.HasValue
+				? new DateTimeOffset(DueDate.Value)
+				: null;
+
+			set
+			{
+				DueDate = value?.DateTime;
+				OnPropertyChanged();
+			}
+		}
 	}
 }

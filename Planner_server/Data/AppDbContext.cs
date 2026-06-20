@@ -29,6 +29,10 @@ namespace Planner_server.Data
 				.WithMany(u => u.Tasks)
 				.HasForeignKey(t => t.UserId)
 				.OnDelete(DeleteBehavior.Cascade);
+
+			modelBuilder.Entity<TaskItem>()
+				.Property(t => t.DueDate)
+				.HasColumnType("timestamp without time zone");
 		}
 	}
 }

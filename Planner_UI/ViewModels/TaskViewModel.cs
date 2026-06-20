@@ -23,6 +23,9 @@ namespace Planner_UI.ViewModels
 		[ObservableProperty]
 		private string description = string.Empty;
 
+		[ObservableProperty]
+		private DateTimeOffset? dueDate;
+
 		public TaskViewModel()
 		{
 			_ = LoadTasksAsync();
@@ -50,7 +53,8 @@ namespace Planner_UI.ViewModels
 			CreateTaskRequest request = new()
 			{
 				Title = Title,
-				Description = Description
+				Description = Description,
+				DueDate = DueDate?.LocalDateTime 
 			};
 
 			TaskItem? createdTask =
@@ -72,7 +76,7 @@ namespace Planner_UI.ViewModels
 			{
 				Title = task.Title,
 				Description = task.Description,
-				DueDate = null,
+				DueDate = DueDate?.LocalDateTime,
 				IsCompleted = task.IsCompleted
 			};
 
@@ -96,7 +100,7 @@ namespace Planner_UI.ViewModels
 			{
 				Title = task.Title,
 				Description = task.Description,
-				DueDate = null,
+				DueDate = DueDate?.LocalDateTime,
 				IsCompleted = task.IsCompleted
 			};
 
