@@ -84,6 +84,36 @@ namespace Planner_UI.ViewModels
 		}
 
 		[RelayCommand]
+		private void EditTask(TaskItem task)
+		{
+			task.IsEditing = true;
+		}
+
+		[RelayCommand]
+		private async Task SaveTask(TaskItem task)
+		{
+			UpdateTaskRequest request = new()
+			{
+				Title = task.Title,
+				Description = task.Description,
+				DueDate = null,
+				IsCompleted = task.IsCompleted
+			};
+
+			bool success =
+				await ServiceLocator.TaskService.UpdateTaskAsync(task.Id, request);
+			
+			if (success)
+				task.IsEditing = false;
+		}
+
+		[RelayCommand]
+		private void CancelEdit(TaskItem task)
+		{
+			task.IsEditing = false;
+		}
+
+		[RelayCommand]
 		private async Task DeleteTask(TaskItem task)
 		{
 			bool success = await ServiceLocator
