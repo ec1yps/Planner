@@ -40,6 +40,10 @@
 
                         <StackPanel>
 
+                            <CheckBox IsChecked="{Binding IsCompleted}"
+                                      Command="{Binding $parent[Window].DataContext.ToggleCompletedCommand}"
+                                      CommandParameter="{Binding}"/>
+
                             <TextBlock Text="{Binding Title}"
                                        FontWeight="Bold"/>
 

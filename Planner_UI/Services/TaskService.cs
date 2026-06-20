@@ -22,7 +22,7 @@ namespace Planner_UI.Services
 		public async Task<List<TaskItem>> GetTasksAsync()
 		{
 			List<TaskItem>? tasks =
-				await _apiService.HttpClient.GetFromJsonAsync<List<TaskItem>>("api/task");
+				await _apiService.HttpClient.GetFromJsonAsync<List<TaskItem>>("api/Task");
 
 			return tasks ?? new List<TaskItem>();
 		}
@@ -30,7 +30,7 @@ namespace Planner_UI.Services
 		public async Task<TaskItem?> CreateTaskAsync(CreateTaskRequest request)
 		{
 			HttpResponseMessage response =
-				await _apiService.HttpClient.PostAsJsonAsync("api/task", request);
+				await _apiService.HttpClient.PostAsJsonAsync("api/Task", request);
 
 			if (!response.IsSuccessStatusCode)
 				return null;
@@ -38,10 +38,18 @@ namespace Planner_UI.Services
 			return await response.Content.ReadFromJsonAsync<TaskItem>();
 		}
 
+		public async Task<bool> UpdateTaskAsync(int id, UpdateTaskRequest request)
+		{
+			HttpResponseMessage response =
+				await _apiService.HttpClient.PutAsJsonAsync($"api/Task/{id}", request);
+
+			return response.IsSuccessStatusCode;
+		}
+
 		public async Task<bool> DeleteTaskAsync(int id)
 		{
 			HttpResponseMessage response =
-				await _apiService.HttpClient.DeleteAsync($"api/task/{id}");
+				await _apiService.HttpClient.DeleteAsync($"api/Task/{id}");
 
 			return response.IsSuccessStatusCode;
 		}

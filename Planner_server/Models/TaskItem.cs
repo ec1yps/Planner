@@ -18,7 +18,7 @@ namespace Planner_server.Models
 		[DataType(DataType.DateTime)]
 		public DateTime? DueDate { get; set; }
 
-		public bool IsCompleted { get; set; } = false;
+		public bool IsCompleted { get; set; }
 
 		[Required]
 		public int UserId { get; set; }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +30,7 @@ namespace Planner_UI.ViewModels
 
 		private async Task LoadTasksAsync()
 		{
-			List<TaskItem>? tasks = 
+			List<TaskItem>? tasks =
 				await ServiceLocator.TaskService.GetTasksAsync();
 
 			Tasks.Clear();
@@ -52,7 +53,7 @@ namespace Planner_UI.ViewModels
 				Description = Description
 			};
 
-			TaskItem? createdTask = 
+			TaskItem? createdTask =
 				await ServiceLocator.TaskService.CreateTaskAsync(request);
 
 			if (createdTask is null)
@@ -65,13 +66,31 @@ namespace Planner_UI.ViewModels
 		}
 
 		[RelayCommand]
+		private async Task ToggleCompleted(TaskItem task)
+		{
+			UpdateTaskRequest request = new()
+			{
+				Title = task.Title,
+				Description = task.Description,
+				DueDate = null,
+				IsCompleted = task.IsCompleted
+			};
+
+			bool success =
+				await ServiceLocator.TaskService.UpdateTaskAsync(task.Id, request);
+
+			if (!success)
+				task.IsCompleted = !task.IsCompleted;
+		}
+
+		[RelayCommand]
 		private async Task DeleteTask(TaskItem task)
 		{
 			bool success = await ServiceLocator
 				.TaskService
 				.DeleteTaskAsync(task.Id);
 
-			if(success)
+			if (success)
 				Tasks.Remove(task);
 		}
 	}
