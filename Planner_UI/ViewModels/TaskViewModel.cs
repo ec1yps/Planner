@@ -16,6 +16,7 @@ namespace Planner_UI.ViewModels
 	public partial class TaskViewModel : ViewModelBase
 	{
 		public ObservableCollection<TaskItem> Tasks { get; } = [];
+		private List<TaskItem> _allTasks = [];
 
 		[ObservableProperty]
 		private string title = string.Empty;
@@ -25,6 +26,17 @@ namespace Planner_UI.ViewModels
 
 		[ObservableProperty]
 		private DateTimeOffset? dueDate;
+
+		[ObservableProperty]
+		private TaskFilter selectedFilter;
+
+		public List<TaskFilter> Filters { get; } =
+			[
+				TaskFilter.All,
+				TaskFilter.Active,
+				TaskFilter.Completed,
+				TaskFilter.Overdue
+			];
 
 		public TaskViewModel()
 		{
@@ -36,12 +48,8 @@ namespace Planner_UI.ViewModels
 			List<TaskItem>? tasks =
 				await ServiceLocator.TaskService.GetTasksAsync();
 
-			Tasks.Clear();
-
-			foreach (var task in tasks)
-			{
-				Tasks.Add(task);
-			}
+			_allTasks = tasks.ToList();
+			ApplyFilter();
 		}
 
 		[RelayCommand]
@@ -54,7 +62,7 @@ namespace Planner_UI.ViewModels
 			{
 				Title = Title,
 				Description = Description,
-				DueDate = DueDate?.LocalDateTime 
+				DueDate = DueDate?.LocalDateTime
 			};
 
 			TaskItem? createdTask =
@@ -63,7 +71,8 @@ namespace Planner_UI.ViewModels
 			if (createdTask is null)
 				return;
 
-			Tasks.Add(createdTask);
+			_allTasks.Add(createdTask);
+			ApplyFilter();
 
 			Title = string.Empty;
 			Description = string.Empty;
@@ -82,6 +91,8 @@ namespace Planner_UI.ViewModels
 
 			bool success =
 				await ServiceLocator.TaskService.UpdateTaskAsync(task.Id, request);
+
+			ApplyFilter();
 
 			if (!success)
 				task.IsCompleted = !task.IsCompleted;
@@ -106,7 +117,7 @@ namespace Planner_UI.ViewModels
 
 			bool success =
 				await ServiceLocator.TaskService.UpdateTaskAsync(task.Id, request);
-			
+
 			if (success)
 				task.IsEditing = false;
 		}
@@ -125,7 +136,41 @@ namespace Planner_UI.ViewModels
 				.DeleteTaskAsync(task.Id);
 
 			if (success)
-				Tasks.Remove(task);
+			{
+				_allTasks.Remove(task);
+				ApplyFilter();
+			}
+		}
+
+		private void ApplyFilter()
+		{
+			IEnumerable<TaskItem> filtered =
+			SelectedFilter switch
+			{
+				TaskFilter.Active =>
+					_allTasks.Where(t => !t.IsCompleted),
+
+				TaskFilter.Completed =>
+					_allTasks.Where(t => t.IsCompleted),
+
+				TaskFilter.Overdue =>
+					_allTasks.Where(t =>
+						!t.IsCompleted &&
+						t.DueDate.HasValue &&
+						t.DueDate.Value.Date < DateTime.Today),
+
+				_ => _allTasks
+			};
+
+			Tasks.Clear();
+
+			foreach (TaskItem task in filtered)
+				Tasks.Add(task);
+		}
+
+		partial void OnSelectedFilterChanged(TaskFilter value)
+		{
+			ApplyFilter();
 		}
 	}
 }

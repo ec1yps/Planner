@@ -27,6 +27,12 @@ namespace Planner_UI.Models
 		[ObservableProperty]
 		private bool isEditing;
 
+
+		public bool IsOverdue =>
+			DueDate.HasValue &&
+			DueDate.Value.Date > DateTime.Today &&
+			!IsCompleted;
+
 		public DateTimeOffset? DueDateOffset
 		{
 			get => DueDate.HasValue
