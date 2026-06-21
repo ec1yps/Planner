@@ -15,6 +15,9 @@ namespace Planner_UI.ViewModels
 		[ObservableProperty]
 		private string password = string.Empty;
 
+		[ObservableProperty]
+		private string errorMessage = string.Empty;
+
 		[RelayCommand]
 		private async Task Login()
 		{
@@ -39,7 +42,7 @@ namespace Planner_UI.ViewModels
 			}
 			else
 			{
-				// Показать ошибку
+				ErrorMessage = "Invalid username or password.";
 			}
 		}
 

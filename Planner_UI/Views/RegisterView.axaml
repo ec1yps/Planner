@@ -6,6 +6,7 @@
         mc:Ignorable="d"
         x:Class="Planner_UI.RegisterView"
         x:DataType="vm:RegisterViewModel"
+        Icon="/Assets/planner.ico"
         WindowStartupLocation="CenterScreen"
         Width="400" Height="420"
         Title="Registration">
@@ -34,8 +35,8 @@
         <TextBlock
             Text="Password"/>
 
-        <TextBox 
-        Text="{Binding Password}"/>
+        <TextBox
+            Text="{Binding Password}"/>
 
         <StackPanel
             Orientation="Horizontal"
@@ -52,6 +53,11 @@
                 Command="{Binding BackCommand}"/>
 
         </StackPanel>
+
+        <TextBlock
+            Text="{Binding $parent[Window].DataContext.ErrorMessage}"
+            Foreground="Red"
+            HorizontalAlignment="Center"/>
 
     </StackPanel>
 

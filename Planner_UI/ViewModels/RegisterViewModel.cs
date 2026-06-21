@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Planner_UI.DTOs;
 using Planner_UI.Services;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Planner_UI.ViewModels
@@ -18,6 +19,9 @@ namespace Planner_UI.ViewModels
 		[ObservableProperty]
 		private string password = string.Empty;
 
+		[ObservableProperty]
+		private string errorMessage = string.Empty;
+
 		[RelayCommand]
 		private async Task Register()
 		{
@@ -28,15 +32,29 @@ namespace Planner_UI.ViewModels
 				Password = Password
 			};
 
+			if (request.Password.Length < 8)
+			{
+				ErrorMessage = "Password must be at least 8 characters long.";
+				return;
+			}
+			if (!Regex.IsMatch(request.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+			{
+				ErrorMessage = "Invalid email format.";
+				return;
+			}
+
 			bool success = await ServiceLocator.AuthService.RegisterAsync(request);
 
 			if (success)
 			{
-				// Вернуться на экран входа
-			}
-			else
-			{
-				// Показать сообщение об ошибке
+				LoginView loginWindow = new();
+				loginWindow.Show();
+
+				if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+				{
+					desktop.MainWindow?.Close();
+					desktop.MainWindow = loginWindow;
+				}
 			}
 		}
 

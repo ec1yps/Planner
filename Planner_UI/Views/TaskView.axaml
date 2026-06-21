@@ -4,6 +4,7 @@
     xmlns:vm="using:Planner_UI.ViewModels"
     x:Class="Planner_UI.TaskView"
     x:DataType="vm:TaskViewModel"
+    Icon="/Assets/planner_icon.ico"
     WindowStartupLocation="CenterScreen"
     Width="950"
     Height="600"

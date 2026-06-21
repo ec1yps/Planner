@@ -6,6 +6,7 @@
         mc:Ignorable="d" 
         x:Class="Planner_UI.LoginView"
         x:DataType="vm:LoginViewModel"
+        Icon="/Assets/planner.ico"
         WindowStartupLocation="CenterScreen"
         Width="400" Height="350"
         Title="Planner">
@@ -44,6 +45,10 @@
 
         </StackPanel>
 
+        <TextBlock
+            Text="{Binding $parent[Window].DataContext.ErrorMessage}"
+            Foreground="Red"
+            HorizontalAlignment="Center"/>
 
     </StackPanel>
 
