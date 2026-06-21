@@ -46,57 +46,111 @@
 
                 <DataTemplate>
 
-                    <Border Padding="10">
+                    <Border BorderBrush="{Binding BorderColor}"
+                            BorderThickness="1"
+                            Padding="10"
+                            Margin="5"
+                            CornerRadius="8">
 
-                        <StackPanel>
+                        <Grid ColumnDefinitions="Auto,*,Auto,Auto">
 
-                            <CheckBox IsChecked="{Binding IsCompleted}"
-                                      Command="{Binding $parent[Window].DataContext.ToggleCompletedCommand}"
-                                      CommandParameter="{Binding}"/>
+                            <StackPanel Grid.Column="0"
+                                        Margin="10,0,10,0"
+                                        IsVisible="{Binding !IsEditing}">
 
-                            <TextBlock Text="{Binding Title}"
-                                       FontWeight="Bold"
-                                       IsVisible="{Binding !IsEditing}"/>
+                                <CheckBox IsChecked="{Binding IsCompleted}"
+                                          Command="{Binding $parent[Window].DataContext.ToggleCompletedCommand}"
+                                          CommandParameter="{Binding}"/>
 
-                            <TextBlock Text="{Binding Description}"
-                                       IsVisible="{Binding !IsEditing}"/>
+                            </StackPanel>
 
-                            <TextBlock Text="{Binding DueDate, StringFormat='Deadline: {0:dd.MM.yyyy}'}"
-                                       IsVisible="{Binding !IsEditing}"/>
+                            <StackPanel Grid.Column="1"
+                                        Spacing="15"
+                                        Margin="10,0,10,0"
+                                        IsVisible="{Binding !IsEditing}">
 
-                            <TextBox Text="{Binding Title}"
-                                     PlaceholderText="Edit title"
-                                     IsVisible="{Binding IsEditing}"/>
+                                <TextBlock Text="{Binding Title}"
+                                           FontWeight="Bold"/>
 
-                            <TextBox Text="{Binding Description}"
-                                     PlaceholderText="Edit description"
-                                     IsVisible="{Binding IsEditing}"/>
+                                <TextBlock Text="{Binding Description}"/>
 
-                            <DatePicker SelectedDate="{Binding DueDateOffset}"
-                                        IsVisible="{Binding IsEditing}"/>
 
-                            <Button Content="Delete"
-                                    IsVisible="{Binding !IsEditing}"
-                                    Command="{Binding $parent[Window].DataContext.DeleteTaskCommand}"
-                                    CommandParameter="{Binding}"/>
+                            </StackPanel>
 
-                            <Button Content="Edit"
-                                    IsVisible="{Binding !IsEditing}"
-                                    Command="{Binding $parent[Window].DataContext.EditTaskCommand}"
-                                    CommandParameter="{Binding}"/>
+                            <StackPanel Grid.Column="2"
+                                        Spacing="15"
+                                        Margin="10,0,10,0"
+                                        IsVisible="{Binding !IsEditing}">
 
-                            <Button Content="Save"
-                                    IsVisible="{Binding IsEditing}"
-                                    Command="{Binding $parent[Window].DataContext.SaveTaskCommand}"
-                                    CommandParameter="{Binding}"/>
+                                <TextBlock Text="{Binding DueDate, StringFormat='Deadline: {0:dd.MM.yyyy}'}"/>
 
-                            <Button Content="Cancel"
-                                    IsVisible="{Binding IsEditing}"
-                                    Command="{Binding $parent[Window].DataContext.CancelEditCommand}"
-                                    CommandParameter="{Binding}"/>
+                                <TextBlock Text="OVERDUE"
+                                           Foreground="Red"
+                                           FontWeight="Bold"
+                                           IsVisible="{Binding IsOverdue}"/>
+                            </StackPanel>
 
-                        </StackPanel>
+                            <StackPanel Grid.Column="3"
+                                        Spacing="15"
+                                        Margin="10,0,10,0"
+                                        IsVisible="{Binding !IsEditing}">
 
+                                <Button Content="Delete"
+                                        Width="70"
+                                        HorizontalContentAlignment="Center"
+                                        Command="{Binding $parent[Window].DataContext.DeleteTaskCommand}"
+                                        CommandParameter="{Binding}"/>
+
+                                <Button Content="Edit"
+                                        Width="70"
+                                        HorizontalContentAlignment="Center"
+                                        Command="{Binding $parent[Window].DataContext.EditTaskCommand}"
+                                        CommandParameter="{Binding}"/>
+
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1"
+                                        Spacing="15"
+                                        Margin="10,0,10,0"
+                                        IsVisible="{Binding IsEditing}">
+
+                                <TextBox Text="{Binding Title}"
+                                         PlaceholderText="Edit title"/>
+
+                                <TextBox Text="{Binding Description}"
+                                         PlaceholderText="Edit description"/>
+
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2"
+                                        Spacing="15"
+                                        Margin="10,0,10,0"
+                                        IsVisible="{Binding IsEditing}">
+
+                                <DatePicker SelectedDate="{Binding DueDateOffset}"/>
+
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3"
+                                        Spacing="15"
+                                        Margin="10,0,10,0"
+                                        IsVisible="{Binding IsEditing}">
+
+                                <Button Content="Save"
+                                        Width="70"
+                                        HorizontalContentAlignment="Center"
+                                        Command="{Binding $parent[Window].DataContext.SaveTaskCommand}"
+                                        CommandParameter="{Binding}"/>
+
+                                <Button Content="Cancel"
+                                        Width="70"
+                                        HorizontalContentAlignment="Center"
+                                        Command="{Binding $parent[Window].DataContext.CancelEditCommand}"
+                                        CommandParameter="{Binding}"/>
+
+                            </StackPanel>
+
+                        </Grid>
                     </Border>
 
                 </DataTemplate>

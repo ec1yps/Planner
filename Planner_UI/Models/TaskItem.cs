@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace Planner_UI.Models
 
 		public bool IsOverdue =>
 			DueDate.HasValue &&
-			DueDate.Value.Date > DateTime.Today &&
+			DueDate.Value.Date < DateTime.Today &&
 			!IsCompleted;
 
 		public DateTimeOffset? DueDateOffset
@@ -44,6 +45,31 @@ namespace Planner_UI.Models
 				DueDate = value?.DateTime;
 				OnPropertyChanged();
 			}
+		}
+
+		public IBrush BorderColor
+		{
+			get
+			{
+				if (IsCompleted)
+					return Brushes.Green;
+
+				if (IsOverdue)
+					return Brushes.Red;
+
+				return Brushes.Gray;
+			}
+		}
+
+		partial void OnIsCompletedChanged(bool value)
+		{
+			OnPropertyChanged(nameof(BorderColor));
+		}
+
+		partial void OnDueDateChanged(DateTime? value)
+		{
+			OnPropertyChanged(nameof(BorderColor));
+			OnPropertyChanged(nameof(IsOverdue));
 		}
 	}
 }
